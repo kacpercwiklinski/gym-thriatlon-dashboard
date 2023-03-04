@@ -10,8 +10,27 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
+model User {
+    id        String      @id @default(cuid())
+    name      String
+    weight    Float
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+    UserScore UserScore[]
+}
+
+model UserScore {
     id        String   @id @default(cuid())
+    exercise  Exercise
+    score     Float
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+enum Exercise {
+    BENCH_PRESS
+    SQUAT
+    DEADLIFT
 }
