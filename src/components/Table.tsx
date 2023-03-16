@@ -1,0 +1,98 @@
+import React, { useState } from "react";
+
+type TableColumn<T> = {
+  label: string;
+  key: keyof T;
+  colSpan?: number;
+};
+
+
+type TableProps<T> = {
+  data: T[];
+  columns: TableColumn<T>[];
+};
+
+function Table<T>({ data, columns }: TableProps<T>) {
+  const [sortColumn, setSortColumn] = useState<keyof T | null>(null);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+
+  const sortedData = [...data].sort((a, b) => {
+    if (sortColumn == null) {
+      return 0;
+    }
+
+    const aValue = a[sortColumn];
+    const bValue = b[sortColumn];
+
+    if (aValue < bValue) {
+      return sortDirection === "asc" ? -1 : 1;
+    } else if (aValue > bValue) {
+      return sortDirection === "asc" ? 1 : -1;
+    } else {
+      return 0;
+    }
+  });
+
+  const handleColumnClick = (columnKey: keyof T) => {
+    if (sortColumn === columnKey) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortColumn(columnKey);
+      setSortDirection("asc");
+    }
+  };
+
+  const renderHeaderCell = (column: TableColumn<T>, index: number) => {
+    const isSortable = column.key !== undefined;
+
+    return (
+      <th
+        key={column.label}
+        colSpan={column.colSpan}
+        onClick={isSortable ? () => handleColumnClick(column.key) : undefined}
+        style={{ cursor: isSortable ? "pointer" : undefined }}
+      >
+        <div>
+        {column.label}
+        {isSortable && sortColumn === column.key && (
+          <span>{sortDirection === "asc" ? " ▲" : " ▼"}</span>
+        )}
+        </div>
+      </th>
+    );
+  };
+
+  const renderDataRow = (row: T, rowIndex: number) => {
+    return (
+      <tr key={rowIndex}>
+        {/* {
+          Object.keys(row).map(key => {
+            return <td>{row[key]}</td>
+          })
+        } */}
+        {columns.map((column, columnIndex) => {
+              if (column.colSpan) {
+                return (
+                  <td key={`${rowIndex}-${columnIndex}`} colSpan={column.colSpan}>
+                    {row[column.key]}
+                  </td>
+                );
+              } else {
+                return <td key={`${rowIndex}-${columnIndex}`}>{row[column.key]}</td>;
+              }
+            })}
+      </tr>
+    );
+  };
+
+  return (
+    <table className="table table-fixed	 max-w-8xl w-full table-zebra">
+      <thead>
+        <tr>{columns.map(renderHeaderCell)}</tr>
+      </thead>
+      <tbody>{sortedData.map(renderDataRow)}</tbody>
+    </table>
+  );
+}
+
+export default Table

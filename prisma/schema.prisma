@@ -20,17 +20,15 @@ model User {
 }
 
 model UserScore {
-    id        String   @id @default(cuid())
-    exercise  Exercise
-    score     Float
-    user      User     @relation(fields: [userId], references: [id])
-    userId    String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
-enum Exercise {
-    BENCH_PRESS
-    SQUAT
-    DEADLIFT
+    id              String   @id @default(cuid())
+    squatScore      Float    @default(0)
+    squatWilks      Float    @default(0)
+    deadliftScore   Float    @default(0)
+    deadliftWilks   Float    @default(0)
+    benchPressScore Float    @default(0)
+    benchPressWilks Float    @default(0)
+    user            User     @relation(fields: [userId], references: [id])
+    userId          String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
 }

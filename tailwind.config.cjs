@@ -4,7 +4,13 @@ const config = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require("daisyui")
+  ],
+  daisyui: {
+    themes: ['autumn']
+  }
 };
 
 module.exports = config;
