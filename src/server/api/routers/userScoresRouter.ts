@@ -14,6 +14,8 @@ export const userScoresRouter = createTRPCRouter({
                 benchPressScore: z.number()
             }))
         .mutation(({ ctx, input }) => {
+            const totalScore = input.squatScore + input.deadliftScore + input.benchPressScore;
+            const totalWilks = wilksMale(input.competitorWeight, totalScore);
             return ctx.prisma.userScore.create({
                 data: {
                     user: {
@@ -27,6 +29,8 @@ export const userScoresRouter = createTRPCRouter({
                     deadliftWilks: wilksMale(input.competitorWeight, input.deadliftScore),
                     benchPressScore: input.benchPressScore,
                     benchPressWilks: wilksMale(input.competitorWeight, input.benchPressScore),
+                    totalScore: totalScore,
+                    totalWilks: totalWilks
                 }
             });
         }),
@@ -41,6 +45,17 @@ export const userScoresRouter = createTRPCRouter({
             return ctx.prisma.userScore.findMany({
                 where: {
                     userId: input.userId
+                }
+            });
+        }),
+    delete: publicProcedure
+        .input(z.object({
+            scoreId: z.string(),
+        }))
+        .mutation(({ ctx, input }) => {
+            return ctx.prisma.userScore.delete({
+                where: {
+                    id: input.scoreId
                 }
             });
         }),
