@@ -53,10 +53,10 @@ function Table<T>({ data, columns }: TableProps<T>) {
         style={{ cursor: isSortable ? "pointer" : undefined }}
       >
         <div>
-        {column.label}
-        {isSortable && sortColumn === column.key && (
-          <span>{sortDirection === "asc" ? " ▲" : " ▼"}</span>
-        )}
+          {column.label}
+          {isSortable && sortColumn === column.key && (
+            <span>{sortDirection === "asc" ? " ▲" : " ▼"}</span>
+          )}
         </div>
       </th>
     );
@@ -65,22 +65,17 @@ function Table<T>({ data, columns }: TableProps<T>) {
   const renderDataRow = (row: T, rowIndex: number) => {
     return (
       <tr key={rowIndex}>
-        {/* {
-          Object.keys(row).map(key => {
-            return <td>{row[key]}</td>
-          })
-        } */}
         {columns.map((column, columnIndex) => {
-              if (column.colSpan) {
-                return (
-                  <td key={`${rowIndex}-${columnIndex}`} colSpan={column.colSpan}>
-                    {row[column.key]}
-                  </td>
-                );
-              } else {
-                return <td key={`${rowIndex}-${columnIndex}`}>{row[column.key]}</td>;
-              }
-            })}
+          if (column.colSpan) {
+            return (
+              <td key={`${rowIndex}-${columnIndex}`} colSpan={column.colSpan}>
+                {row[column.key]}
+              </td>
+            );
+          } else {
+            return <td key={`${rowIndex}-${columnIndex}`}>{row[column.key]}</td>;
+          }
+        })}
       </tr>
     );
   };
