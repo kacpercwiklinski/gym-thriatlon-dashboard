@@ -103,17 +103,16 @@ const UserScoreForm = ({ userScores, refetch }: Props) => {
     };
 
     return (
-        <>
-            <form className="flex space-x-2" onSubmit={handleFormSubmission}>
-                <select name="competitorId" onChange={scoreFormOnChange} className="select w-full max-w-[10rem] input-bordered" value={scoreFormData.competitorId}>
-                    <option value="" disabled>Zawodnik</option>
-                    {users ? users.map(user => <option key={user.id} value={user.id}>{user.name}</option>) : null}
-                </select>
-                <input name="squat" onChange={scoreFormOnChange} type="number" placeholder="Przysiad" value={scoreFormData.squat} className="input w-full max-w-[12rem] input-bordered" />
-                <input name="deadlift" onChange={scoreFormOnChange} type="number" placeholder="Martwy" value={scoreFormData.deadlift} className="input w-full max-w-[12rem] input-bordered" />
-                <input name="benchpress" onChange={scoreFormOnChange} type="number" placeholder="Płaska" value={scoreFormData.benchpress} className="input w-full max-w-[12rem] input-bordered" />
-                <button className="btn btn-outline btn-accent">{editMode ? "Edytuj" : "Dodaj"}</button>
-            </form></>
+        <form className="flex space-x-2" onSubmit={handleFormSubmission}>
+            <select name="competitorId" onChange={scoreFormOnChange} className="select w-full max-w-[10rem] input-bordered" value={scoreFormData.competitorId}>
+                <option value="" disabled>Zawodnik</option>
+                {users ? users.map(user => <option key={user.id} value={user.id}>{user.name}</option>) : null}
+            </select>
+            <input name="squat" onChange={scoreFormOnChange} type="number" placeholder="Przysiad" value={scoreFormData.squat} className="input w-full max-w-[12rem] input-bordered" />
+            <input name="deadlift" onChange={scoreFormOnChange} type="number" placeholder="Martwy" value={scoreFormData.deadlift} className="input w-full max-w-[12rem] input-bordered" />
+            <input name="benchpress" onChange={scoreFormOnChange} type="number" placeholder="Płaska" value={scoreFormData.benchpress} className="input w-full max-w-[12rem] input-bordered" />
+            <button className="btn btn-outline btn-accent">{editMode ? "Edytuj" : "Dodaj"}</button>
+        </form>
     )
 }
 
