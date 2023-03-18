@@ -1,13 +1,9 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import CompetitorsView from "~/components/CompetitorsView";
 import ScoresView from "~/components/ScoresView";
-import Table from "~/components/Table";
-import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  const { data: users } = api.users.findAll.useQuery();
-
-
   return (
     <>
       <Head>
@@ -17,11 +13,7 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <div className="container mx-auto">
-          <h2>Zawodnicy</h2>
-          <Table columns={[
-            { label: "Wyciskacz", key: "name" },
-            { label: "Waga", key: "weight", colSpan: 2 }
-          ]} data={users ? users : []} />
+          <CompetitorsView />
           <hr />
           <ScoresView />
 
