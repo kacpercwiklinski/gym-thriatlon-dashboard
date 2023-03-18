@@ -9,7 +9,8 @@ const config = {
     require("daisyui")
   ],
   daisyui: {
-    themes: ['dracula']
+    themes: ['autumn', 'dracula'],
+    darkTheme: 'dracula'
   }
 };
 

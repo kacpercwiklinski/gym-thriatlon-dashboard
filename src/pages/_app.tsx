@@ -7,7 +7,7 @@ import Navbar from "~/components/Navbar";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div theme-data="dracula" className="prose max-w-none">
+    <div className="prose max-w-none">
       <Navbar />
       <Component {...pageProps} />
     </div>)
