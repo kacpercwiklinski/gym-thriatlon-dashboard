@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       <main>
         <div className="container mx-auto">
           <h2>Zawodnicy</h2>
-          <Table columnHeaders={[]} columns={[
+          <Table columns={[
             { label: "Wyciskacz", key: "name" },
             { label: "Waga", key: "weight", colSpan: 2 }
           ]} data={users ? users : []} />
