@@ -37,11 +37,11 @@ export const usersRouter = createTRPCRouter({
       {
         id: z.string(),
       }))
-    .query(({ ctx, input }) => {
+    .mutation(({ ctx, input }) => {
       return ctx.prisma.user.delete({
         where: {
           id: input.id
-        }
+        },
       })
     }),
   update: publicProcedure
