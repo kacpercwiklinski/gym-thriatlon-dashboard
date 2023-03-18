@@ -29,7 +29,7 @@ model UserScore {
     benchPressWilks Float    @default(0)
     totalScore      Float    @default(0)
     totalWilks      Float    @default(0)
-    user            User     @relation(fields: [userId], references: [id])
+    user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId          String
     createdAt       DateTime @default(now())
     updatedAt       DateTime @updatedAt
