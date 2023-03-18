@@ -22,9 +22,8 @@ const CompetitorsView = (props: Props) => {
 
     return (
         <>
-            <h2>Nowy zawodnik</h2>
+            <h1>Zawodnicy</h1>
             <CompetitorsForm refetch={refetch} />
-            <h2>Zawodnicy</h2>
             <Table columns={[
                 { label: "Wyciskacz", key: "name" },
                 { label: "Waga", key: "weight" },

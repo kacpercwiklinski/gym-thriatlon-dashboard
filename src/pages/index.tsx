@@ -12,11 +12,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="container mx-auto">
+        <div className="container mx-auto pt-8">
           <CompetitorsView />
           <hr />
           <ScoresView />
-
         </div>
       </main>
     </>

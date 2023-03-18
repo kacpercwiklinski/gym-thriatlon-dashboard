@@ -59,9 +59,8 @@ const ScoresView = (props: Props) => {
 
   return (
     <>
-      <h2>Nowy wynik</h2>
+      <h1>Wyniki</h1>
       {userScores && <UserScoreForm userScores={userScores} refetch={refetch} />}
-      <h2>Wyniki</h2>
       <table className="table max-w-8xl w-full table-zebra table-normal">
         <thead>
           <tr className="text-center [&>*]:p-3 [&>*]:text-md">
