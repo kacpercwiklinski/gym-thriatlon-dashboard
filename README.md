@@ -2,6 +2,7 @@
 ## Features
 * Competitors adding/removing
 * Scores adding/removing/editing for specific competitor
+* Scores table sorting
 * Wilks score auto calculation
 
 ## Deployment
