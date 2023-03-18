@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 type TableColumn<T> = {
   label: string;
-  key: keyof T;
-  colSpan?: number;
+  key?: keyof T;
+  content?: (item: any) => void
 };
 
 
@@ -33,7 +33,7 @@ function Table<T>({ data, columns }: TableProps<T>) {
     }
   });
 
-  const handleColumnClick = (columnKey: keyof T) => {
+  const handleColumnClick = (columnKey: keyof T | any) => {
     if (sortColumn === columnKey) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
@@ -48,7 +48,6 @@ function Table<T>({ data, columns }: TableProps<T>) {
     return (
       <th
         key={column.label}
-        colSpan={column.colSpan}
         onClick={isSortable ? () => handleColumnClick(column.key) : undefined}
         style={{ cursor: isSortable ? "pointer" : undefined }}
       >
@@ -66,13 +65,11 @@ function Table<T>({ data, columns }: TableProps<T>) {
     return (
       <tr key={rowIndex}>
         {columns.map((column, columnIndex) => {
-          if (column.colSpan) {
-            return (
-              <td key={`${rowIndex}-${columnIndex}`} colSpan={column.colSpan}>
-                {row[column.key]}
-              </td>
-            );
+          if (column.content) {
+            // @ts-ignore
+            return <td key={`${rowIndex}-${columnIndex}`}>{column.content(row[column.key])}</td>
           } else {
+            // @ts-ignore
             return <td key={`${rowIndex}-${columnIndex}`}>{row[column.key]}</td>;
           }
         })}
