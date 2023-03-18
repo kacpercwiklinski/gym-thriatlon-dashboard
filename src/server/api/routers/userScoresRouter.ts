@@ -34,6 +34,34 @@ export const userScoresRouter = createTRPCRouter({
                 }
             });
         }),
+    update: publicProcedure
+        .input(z.object(
+            {
+                scoreId: z.string(),
+                competitorWeight: z.number(),
+                squatScore: z.number(),
+                deadliftScore: z.number(),
+                benchPressScore: z.number()
+            }))
+        .mutation(({ ctx, input }) => {
+            const totalScore = input.squatScore + input.deadliftScore + input.benchPressScore;
+            const totalWilks = wilksMale(input.competitorWeight, totalScore);
+            return ctx.prisma.userScore.update({
+                where: {
+                    id: input.scoreId,
+                },
+                data: {
+                    squatScore: input.squatScore,
+                    squatWilks: wilksMale(input.competitorWeight, input.squatScore),
+                    deadliftScore: input.deadliftScore,
+                    deadliftWilks: wilksMale(input.competitorWeight, input.deadliftScore),
+                    benchPressScore: input.benchPressScore,
+                    benchPressWilks: wilksMale(input.competitorWeight, input.benchPressScore),
+                    totalScore: totalScore,
+                    totalWilks: totalWilks
+                }
+            });
+        }),
     findAll: publicProcedure.query(({ ctx }) => {
         return ctx.prisma.userScore.findMany({ include: { user: true } });
     }),
